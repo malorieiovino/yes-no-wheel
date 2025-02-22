@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes/No Wheel</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .wheel-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 3s ease-out;
+        }
+        .wheel span {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .yes { top: 20%; left: 50%; transform: translateX(-50%); color: green; }
+        .no { bottom: 20%; left: 50%; transform: translateX(-50%); color: red; }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wheel-container">
+        <div id="wheel" class="wheel">
+            <span class="yes">YES</span>
+            <span class="no">NO</span>
+        </div>
+    </div>
+    <div class="button-container">
+        <button onclick="spinWheel()">Spin</button>
+    </div>
+    <script>
+        function spinWheel() {
+            const wheel = document.getElementById('wheel');
+            const spinAmount = Math.floor(Math.random() * 360) + 1800; // Spin 5+ times
+            wheel.style.transform = `rotate(${spinAmount}deg)`;
+            setTimeout(() => {
+                const result = (spinAmount % 360) > 180 ? 'YES' : 'NO';
+                alert(`Result: ${result}`);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
