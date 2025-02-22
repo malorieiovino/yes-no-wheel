@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yes/No Wheel</title>
+    <title>Spinning Decision Wheel</title>
     <style>
         body {
             display: flex;
@@ -16,28 +16,38 @@
         }
         .wheel-container {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
         }
         .wheel {
             width: 100%;
             height: 100%;
             border-radius: 50%;
             border: 5px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
             transition: transform 3s ease-out;
+        }
+        .arrow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid red;
         }
         .wheel span {
             position: absolute;
-            font-size: 24px;
+            font-size: 16px;
             font-weight: bold;
         }
-        .yes { top: 20%; left: 50%; transform: translateX(-50%); color: green; }
-        .no { bottom: 20%; left: 50%; transform: translateX(-50%); color: red; }
-        .button-container {
-            margin-top: 20px;
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
         }
         button {
             padding: 10px 20px;
@@ -48,24 +58,49 @@
 </head>
 <body>
     <div class="wheel-container">
-        <div id="wheel" class="wheel">
-            <span class="yes">YES</span>
-            <span class="no">NO</span>
-        </div>
+        <div class="arrow"></div>
+        <canvas id="wheelCanvas" width="250" height="250"></canvas>
     </div>
-    <div class="button-container">
+    <div class="options">
         <button onclick="spinWheel()">Spin</button>
     </div>
     <script>
+        const canvas = document.getElementById("wheelCanvas");
+        const ctx = canvas.getContext("2d");
+        const options = ["Yes", "No", "Maybe", "Try Again", "Definitely", "Not Sure"];
+        const colors = ["#FF5733", "#33FF57", "#3357FF", "#F1C40F", "#9B59B6", "#E74C3C"];
+        let startAngle = 0;
+
+        function drawWheel() {
+            const arc = (2 * Math.PI) / options.length;
+            for (let i = 0; i < options.length; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = colors[i];
+                ctx.moveTo(125, 125);
+                ctx.arc(125, 125, 125, startAngle, startAngle + arc);
+                ctx.lineTo(125, 125);
+                ctx.fill();
+                ctx.save();
+                ctx.translate(125, 125);
+                ctx.rotate(startAngle + arc / 2);
+                ctx.fillStyle = "#fff";
+                ctx.font = "16px Arial";
+                ctx.fillText(options[i], 40, 10);
+                ctx.restore();
+                startAngle += arc;
+            }
+        }
+        
         function spinWheel() {
-            const wheel = document.getElementById('wheel');
-            const spinAmount = Math.floor(Math.random() * 360) + 1800; // Spin 5+ times
-            wheel.style.transform = `rotate(${spinAmount}deg)`;
+            const spinAmount = Math.floor(Math.random() * 360) + 1800; // Spins at least 5 times
+            canvas.style.transition = "transform 3s ease-out";
+            canvas.style.transform = `rotate(${spinAmount}deg)`;
             setTimeout(() => {
-                const result = (spinAmount % 360) > 180 ? 'YES' : 'NO';
-                alert(`Result: ${result}`);
+                const resultIndex = Math.floor(((spinAmount % 360) / 360) * options.length);
+                alert(`Result: ${options[resultIndex]}`);
             }, 3000);
         }
+        drawWheel();
     </script>
 </body>
 </html>
