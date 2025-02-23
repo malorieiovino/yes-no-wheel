@@ -32,12 +32,12 @@
             border-radius: 10px;
         }
         .yes-score {
-            background-color: #4f772d; /* Green for YES */
+            background-color: #4CAF50; /* Green for YES */
             color: white;
         }
         .no-score {
-            background-color: #f4a261; /* Orange for NO */
-            color: black;
+            background-color: #D32F2F; /* Red for NO */
+            color: white;
         }
         .wheel-container {
             position: relative;
@@ -53,12 +53,12 @@
             overflow: hidden;
             transition: transform 3s ease-out;
             background: conic-gradient(
-                #4f772d 0deg 60deg,    /* YES - Green */
-                #f4a261 60deg 120deg,  /* NO - Orange */
-                #ffcc66 120deg 180deg, /* YES - Light Yellow */
-                #8fbc8f 180deg 240deg, /* NO - Olive Green */
-                #ffb347 240deg 300deg, /* YES - Dark Orange */
-                #5a7d9a 300deg 360deg  /* NO - Blue Gray */
+                #4CAF50 0deg 60deg,    /* YES - Green */
+                #D32F2F 60deg 120deg,  /* NO - Red */
+                #4CAF50 120deg 180deg, /* YES - Green */
+                #D32F2F 180deg 240deg, /* NO - Red */
+                #4CAF50 240deg 300deg, /* YES - Green */
+                #D32F2F 300deg 360deg  /* NO - Red */
             );
             display: flex;
             align-items: center;
@@ -69,7 +69,7 @@
             position: absolute;
             font-size: 20px;
             font-weight: bold;
-            color: black;
+            color: white;
         }
         .wheel span:nth-child(1) { transform: rotate(30deg) translate(120px); }
         .wheel span:nth-child(2) { transform: rotate(90deg) translate(120px); }
@@ -160,4 +160,3 @@
     </script>
 </body>
 </html>
-
