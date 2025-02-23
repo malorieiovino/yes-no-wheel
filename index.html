@@ -114,28 +114,23 @@
     
     <div class="wheel-container">
         <div class="arrow">▼</div>
-        <div class="wheel" id="wheel">
-            <div class="segment-text yes-text">YES</div>
-            <div class="segment-text no-text">NO</div>
-            <div class="segment-text yes-text2">YES</div>
-            <div class="segment-text no-text2">NO</div>
-            <div class="segment-text yes-text3">YES</div>
-            <div class="segment-text no-text3">NO</div>
-        </div>
+        <div class="wheel" id="wheel"></div>
     </div>
     <button onclick="spinWheel()">Spin</button>
 
     <script>
         let yesCount = 0;
         let noCount = 0;
+        let currentRotation = 0; // Track total rotation to keep spins consistent
 
         function spinWheel() {
             const wheel = document.getElementById("wheel");
-            const randomSpin = Math.floor(Math.random() * 360) + 1800; // Spins at least 5 times
-            wheel.style.transform = `rotate(${randomSpin}deg)`;
+            const spinAmount = Math.floor(Math.random() * 360) + 1800; // At least 5 full spins
+            currentRotation += spinAmount; // Keep track of cumulative rotation
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
-                const finalRotation = (randomSpin % 360);
+                const finalRotation = (currentRotation % 360);
                 if ((finalRotation >= 0 && finalRotation < 60) || 
                     (finalRotation >= 120 && finalRotation < 180) || 
                     (finalRotation >= 240 && finalRotation < 300)) {
@@ -145,8 +140,9 @@
                     noCount++;
                     document.getElementById("no-count").innerText = noCount;
                 }
-            }, 3100); // Wait until the spin animation is complete
+            }, 3100); // Ensure result updates after animation completes
         }
     </script>
 </body>
 </html>
+
