@@ -14,6 +14,31 @@
             background-color: #e0e0d1;
             font-family: Arial, sans-serif;
         }
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .score {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            width: 80px;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .yes-score {
+            background-color: #4f772d;
+            color: white;
+        }
+        .no-score {
+            background-color: #f4a261;
+            color: black;
+        }
         .wheel-container {
             position: relative;
         }
@@ -76,6 +101,17 @@
     </style>
 </head>
 <body>
+    <div class="scoreboard">
+        <div class="score yes-score">
+            <div>YES</div>
+            <div id="yes-count">0</div>
+        </div>
+        <div class="score no-score">
+            <div>NO</div>
+            <div id="no-count">0</div>
+        </div>
+    </div>
+    
     <div class="wheel-container">
         <div class="arrow">▼</div>
         <div class="wheel" id="wheel">
@@ -90,13 +126,27 @@
     <button onclick="spinWheel()">Spin</button>
 
     <script>
+        let yesCount = 0;
+        let noCount = 0;
+
         function spinWheel() {
             const wheel = document.getElementById("wheel");
             const randomSpin = Math.floor(Math.random() * 360) + 1800; // Spins at least 5 times
             wheel.style.transform = `rotate(${randomSpin}deg)`;
+
+            setTimeout(() => {
+                const finalRotation = (randomSpin % 360);
+                if ((finalRotation >= 0 && finalRotation < 60) || 
+                    (finalRotation >= 120 && finalRotation < 180) || 
+                    (finalRotation >= 240 && finalRotation < 300)) {
+                    yesCount++;
+                    document.getElementById("yes-count").innerText = yesCount;
+                } else {
+                    noCount++;
+                    document.getElementById("no-count").innerText = noCount;
+                }
+            }, 3100); // Wait until the spin animation is complete
         }
     </script>
 </body>
 </html>
-
-
