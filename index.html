@@ -41,10 +41,12 @@
         }
         .wheel-container {
             position: relative;
+            width: 320px;
+            height: 320px;
         }
         .wheel {
-            width: 300px;
-            height: 300px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             border: 5px solid black;
             position: relative;
@@ -53,19 +55,39 @@
             background: conic-gradient(
                 #4f772d 0deg 60deg,    /* YES - Green */
                 #f4a261 60deg 120deg,  /* NO - Orange */
-                #4f772d 120deg 180deg, /* YES - Green */
-                #f4a261 180deg 240deg, /* NO - Orange */
-                #4f772d 240deg 300deg, /* YES - Green */
-                #f4a261 300deg 360deg  /* NO - Orange */
+                #ffcc66 120deg 180deg, /* YES - Light Yellow */
+                #8fbc8f 180deg 240deg, /* NO - Olive Green */
+                #ffb347 240deg 300deg, /* YES - Dark Orange */
+                #5a7d9a 300deg 360deg  /* NO - Blue Gray */
             );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
+        .wheel span {
+            position: absolute;
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+        }
+        .wheel span:nth-child(1) { transform: rotate(30deg) translate(120px); }
+        .wheel span:nth-child(2) { transform: rotate(90deg) translate(120px); }
+        .wheel span:nth-child(3) { transform: rotate(150deg) translate(120px); }
+        .wheel span:nth-child(4) { transform: rotate(210deg) translate(120px); }
+        .wheel span:nth-child(5) { transform: rotate(270deg) translate(120px); }
+        .wheel span:nth-child(6) { transform: rotate(330deg) translate(120px); }
+
         .arrow {
             position: absolute;
             top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 30px;
-            color: black;
+            width: 0; 
+            height: 0; 
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 30px solid black;
         }
         button {
             margin-top: 20px;
@@ -95,35 +117,47 @@
     </div>
     
     <div class="wheel-container">
-        <div class="arrow">▼</div>
-        <div class="wheel" id="wheel"></div>
+        <div class="arrow"></div>
+        <div class="wheel" id="wheel">
+            <span>YES</span>
+            <span>NO</span>
+            <span>YES</span>
+            <span>NO</span>
+            <span>YES</span>
+            <span>NO</span>
+        </div>
     </div>
     <button onclick="spinWheel()">Spin</button>
 
     <script>
         let yesCount = 0;
         let noCount = 0;
-        let currentRotation = 0; // Track total rotation to keep spins consistent
+        let currentRotation = 0;
 
         function spinWheel() {
             const wheel = document.getElementById("wheel");
             const spinAmount = Math.floor(Math.random() * 360) + 1800; // At least 5 full spins
-            currentRotation += spinAmount; // Keep track of cumulative rotation
+            currentRotation += spinAmount;
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
             setTimeout(() => {
                 const finalRotation = (currentRotation % 360);
+                let result = "";
+
                 if ((finalRotation >= 0 && finalRotation < 60) || 
                     (finalRotation >= 120 && finalRotation < 180) || 
                     (finalRotation >= 240 && finalRotation < 300)) {
-                    noCount++; // Fixing the mislabeling
+                    result = "NO";
+                    noCount++;
                     document.getElementById("no-count").innerText = noCount;
                 } else {
+                    result = "YES";
                     yesCount++;
                     document.getElementById("yes-count").innerText = yesCount;
                 }
-            }, 3100); // Ensure result updates after animation completes
+            }, 3100); // Update results after animation ends
         }
     </script>
 </body>
 </html>
+
