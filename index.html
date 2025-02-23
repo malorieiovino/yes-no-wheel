@@ -32,11 +32,11 @@
             border-radius: 10px;
         }
         .yes-score {
-            background-color: #4f772d;
+            background-color: #4f772d; /* Green for YES */
             color: white;
         }
         .no-score {
-            background-color: #f4a261;
+            background-color: #f4a261; /* Orange for NO */
             color: black;
         }
         .wheel-container {
@@ -67,24 +67,6 @@
             font-size: 30px;
             color: black;
         }
-        .segment-text {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: bold;
-            color: white;
-            text-transform: uppercase;
-        }
-        .yes-text { transform: rotate(30deg) translate(40px) rotate(-30deg); }
-        .no-text { transform: rotate(90deg) translate(40px) rotate(-90deg); }
-        .yes-text2 { transform: rotate(150deg) translate(40px) rotate(-150deg); }
-        .no-text2 { transform: rotate(210deg) translate(40px) rotate(-210deg); }
-        .yes-text3 { transform: rotate(270deg) translate(40px) rotate(-270deg); }
-        .no-text3 { transform: rotate(330deg) translate(40px) rotate(-330deg); }
         button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -134,15 +116,14 @@
                 if ((finalRotation >= 0 && finalRotation < 60) || 
                     (finalRotation >= 120 && finalRotation < 180) || 
                     (finalRotation >= 240 && finalRotation < 300)) {
+                    noCount++; // Fixing the mislabeling
+                    document.getElementById("no-count").innerText = noCount;
+                } else {
                     yesCount++;
                     document.getElementById("yes-count").innerText = yesCount;
-                } else {
-                    noCount++;
-                    document.getElementById("no-count").innerText = noCount;
                 }
             }, 3100); // Ensure result updates after animation completes
         }
     </script>
 </body>
 </html>
-
