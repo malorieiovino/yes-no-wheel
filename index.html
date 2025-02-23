@@ -34,18 +34,6 @@
                 #f4a261 300deg 360deg  /* NO - Orange */
             );
         }
-        .wheel:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            z-index: 2;
-        }
         .arrow {
             position: absolute;
             top: -20px;
@@ -54,7 +42,7 @@
             font-size: 30px;
             color: black;
         }
-        .wheel-text {
+        .segment-text {
             position: absolute;
             width: 100%;
             height: 100%;
@@ -63,9 +51,15 @@
             justify-content: center;
             font-size: 24px;
             font-weight: bold;
-            text-transform: uppercase;
             color: white;
+            text-transform: uppercase;
         }
+        .yes-text { transform: rotate(30deg) translate(80px) rotate(-30deg); }
+        .no-text { transform: rotate(90deg) translate(80px) rotate(-90deg); }
+        .yes-text2 { transform: rotate(150deg) translate(80px) rotate(-150deg); }
+        .no-text2 { transform: rotate(210deg) translate(80px) rotate(-210deg); }
+        .yes-text3 { transform: rotate(270deg) translate(80px) rotate(-270deg); }
+        .no-text3 { transform: rotate(330deg) translate(80px) rotate(-330deg); }
         button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -85,7 +79,12 @@
     <div class="wheel-container">
         <div class="arrow">▼</div>
         <div class="wheel" id="wheel">
-            <div class="wheel-text">YES / NO</div>
+            <div class="segment-text yes-text">YES</div>
+            <div class="segment-text no-text">NO</div>
+            <div class="segment-text yes-text2">YES</div>
+            <div class="segment-text no-text2">NO</div>
+            <div class="segment-text yes-text3">YES</div>
+            <div class="segment-text no-text3">NO</div>
         </div>
     </div>
     <button onclick="spinWheel()">Spin</button>
