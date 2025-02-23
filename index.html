@@ -80,15 +80,16 @@
 
         .arrow {
             position: absolute;
-            top: -20px;
+            bottom: -20px; /* Moves it below the wheel */
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) rotate(180deg); /* Rotates the arrow downward */
             width: 0; 
             height: 0; 
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-bottom: 30px solid black;
+            border-top: 30px solid black; /* Flips the arrow */
         }
+
         button {
             margin-top: 20px;
             padding: 10px 20px;
